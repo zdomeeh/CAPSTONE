@@ -8,9 +8,17 @@ public class Inventory : MonoBehaviour
 
     private List<string> items = new List<string>();
 
-    private void Awake()
+    void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void AddItem(string item, Sprite sprite)

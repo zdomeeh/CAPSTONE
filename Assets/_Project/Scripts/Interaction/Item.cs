@@ -8,6 +8,12 @@ public class Item : MonoBehaviour
     public void PickUp()
     {
         Inventory.Instance.AddItem(itemName, itemIcon);
+
+        if (itemName == "Clue")
+        {
+            Debug.Log("Fine del gioco!");
+        }
+
         gameObject.SetActive(false);
     }
 }
