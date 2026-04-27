@@ -1,4 +1,5 @@
-﻿=== start ===
+-> start
+=== start ===
 Tò,
 se stai leggendo questo significa che è successo qualcosa.
 

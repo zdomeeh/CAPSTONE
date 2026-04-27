@@ -11,6 +11,8 @@ public class ClickManager : MonoBehaviour
 
             if (hit.collider != null)
             {
+                Debug.Log("Ho cliccato: " + hit.collider.name);
+
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable != null)

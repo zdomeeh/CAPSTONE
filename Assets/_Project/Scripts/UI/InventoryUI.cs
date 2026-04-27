@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,20 +6,23 @@ public class InventoryUI : MonoBehaviour
     public GameObject itemSlotPrefab;
     public Transform inventoryPanel;
 
-    private List<GameObject> slots = new List<GameObject>();
-
-    public void AddItemToUI(string itemName, Sprite itemSprite)
+    public void AddItemToUI(InventoryItem item)
     {
         GameObject slot = Instantiate(itemSlotPrefab, inventoryPanel);
 
         Image img = slot.GetComponent<Image>();
-        img.sprite = itemSprite;
+        img.sprite = item.icon;
 
         Button btn = slot.GetComponent<Button>();
 
         btn.onClick.AddListener(() =>
         {
-            InventorySelection.Instance.SelectItem(itemName);
+            InventorySelection.Instance.SelectItem(item.itemName);
+
+            if (item.inkJSON != null)
+            {
+                InkManager.Instance.StartStory(item.inkJSON);
+            }
         });
     }
 }
