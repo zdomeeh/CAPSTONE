@@ -6,9 +6,17 @@ public class InventorySelection : MonoBehaviour
 
     public string selectedItem;
 
-    private void Awake()
+    void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SelectItem(string itemName)

@@ -39,6 +39,6 @@ public class Door : Interactable
 
     void OpenDoor()
     {
-        SceneManager.LoadScene("Lvl1");
+        SceneManager.LoadScene("Lvl0.5");
     }
 }
