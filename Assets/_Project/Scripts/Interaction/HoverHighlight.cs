@@ -16,7 +16,7 @@ public class HoverHighlight : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Non attivare hover se dialogo aperto
+        // Non attiva hover se dialogo aperto
         if (InkManager.Instance != null && InkManager.Instance.IsDialogueActive())
             return;
 

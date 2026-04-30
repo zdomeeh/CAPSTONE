@@ -769,7 +769,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Crowbar
   itemIcon: {fileID: 21300000, guid: 501cb934179887c459c5e393ba805c3c, type: 3}
-  inkJSON: {fileID: 4900000, guid: 70c5cad440fa2bf4694e39cc599ec8fc, type: 3}
+  inkJSON: {fileID: 4900000, guid: 2f09129a750ee0c41bf9c60078b9ecd2, type: 3}
+  isReadable: 0
 --- !u!114 &928820978
 MonoBehaviour:
   m_ObjectHideFlags: 0

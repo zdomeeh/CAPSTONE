@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
     public InventoryUI inventoryUI;
 
-    private List<InventoryItem> items = new List<InventoryItem>();
+    private List<InventoryItemData> items = new List<InventoryItemData>();
 
     void Awake()
     {
@@ -21,23 +21,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemName, Sprite sprite, TextAsset inkJSON)
+    public void AddItem(InventoryItemData itemData)
     {
-        InventoryItem newItem = new InventoryItem(itemName, sprite, inkJSON);
-        items.Add(newItem);
-
-        inventoryUI.AddItemToUI(newItem);
-
-        Debug.Log("Aggiunto: " + itemName);
+        items.Add(itemData);
+        inventoryUI.AddItemToUI(itemData);
     }
 
     public bool HasItem(string itemName)
     {
-        foreach (var item in items)
-        {
-            if (item.itemName == itemName)
-                return true;
-        }
-        return false;
+        return items.Exists(i => i.itemName == itemName);
+    }
+
+    public InventoryItemData GetItem(string itemName)
+    {
+        return items.Find(i => i.itemName == itemName);
     }
 }

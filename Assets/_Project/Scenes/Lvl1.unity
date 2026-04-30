@@ -396,6 +396,7 @@ MonoBehaviour:
   itemName: Clue
   itemIcon: {fileID: 0}
   inkJSON: {fileID: 0}
+  isReadable: 0
 --- !u!114 &99828341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +612,7 @@ MonoBehaviour:
   itemName: Tool
   itemIcon: {fileID: 21300000, guid: 60e9af4375dc028419a5a4df5dadec4a, type: 3}
   inkJSON: {fileID: 0}
+  isReadable: 0
 --- !u!61 &201659128
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1005,7 +1007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredItem: Crowbar
-  closedDialogue: {fileID: 4900000, guid: 92b741956f0e1b049aee08d1953439c9, type: 3}
+  closedDialogue: {fileID: 4900000, guid: b7fc6282fa60dc44e8f55f4cdcc55b6d, type: 3}
   hintDialogue: {fileID: 4900000, guid: 43e0bfdb080f58e4ab2f6e65dea9dea8, type: 3}
   openDialogue: {fileID: 4900000, guid: 7355f59e1c2de054db2b74dcab0e50e5, type: 3}
   hiddenObject: {fileID: 99828337}

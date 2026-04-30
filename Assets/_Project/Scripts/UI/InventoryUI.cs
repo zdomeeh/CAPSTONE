@@ -1,28 +1,34 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class InventoryUI : MonoBehaviour
 {
     public GameObject itemSlotPrefab;
     public Transform inventoryPanel;
 
-    public void AddItemToUI(InventoryItem item)
+    private List<GameObject> slots = new List<GameObject>();
+
+    public void AddItemToUI(InventoryItemData itemData)
     {
         GameObject slot = Instantiate(itemSlotPrefab, inventoryPanel);
 
         Image img = slot.GetComponent<Image>();
-        img.sprite = item.icon;
+        img.sprite = itemData.icon;
 
         Button btn = slot.GetComponent<Button>();
 
         btn.onClick.AddListener(() =>
         {
-            InventorySelection.Instance.SelectItem(item.itemName);
+            InventorySelection.Instance.SelectItem(itemData.itemName);
 
-            if (item.inkJSON != null)
+            // SOLO se leggibile
+            if (itemData.isReadable && itemData.inkJSON != null)
             {
-                InkManager.Instance.StartStory(item.inkJSON);
+                InkManager.Instance.StartStory(itemData.inkJSON);
             }
         });
+
+        slots.Add(slot);
     }
 }

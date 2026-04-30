@@ -6,7 +6,8 @@ public class ClickManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (InkManager.Instance != null && InkManager.Instance.IsDialogueActive())
+            // BLOCCO INPUT GLOBALE
+            if (InkManager.IsInputBlocked)
                 return;
 
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
