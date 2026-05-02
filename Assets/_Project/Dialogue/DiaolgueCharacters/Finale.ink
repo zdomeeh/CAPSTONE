@@ -1,12 +1,12 @@
 PINO: Non mi piace questa storia, Tò…
 
-TO: Nemmeno a me.
+TÒ: Nemmeno a me.
 
 PINO: E se non fosse sparito per caso?
 
-TO: …
+TÒ: …
 
 PINO: Tò?
 
-TO: Andiamo via.
+TÒ: Andiamo via.
     -> END

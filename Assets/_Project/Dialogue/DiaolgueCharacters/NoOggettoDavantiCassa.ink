@@ -1,10 +1,10 @@
 PINO: È chiusa.
 
-TO: Lo vedo.
+TÒ: Lo vedo.
 
 PINO: Magari si apre?
 
-TO: Pino…
+TÒ: Pino…
 
 PINO: Ok, ho capito.
     -> END

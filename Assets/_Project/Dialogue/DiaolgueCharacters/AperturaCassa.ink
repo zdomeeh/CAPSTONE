@@ -1,12 +1,12 @@
 PINO: Si è aperta!
 
-TO: …
+TÒ: …
 
 PINO: Hai sentito?
 
-TO: Sì.
+TÒ: Sì.
 
 PINO: È caduto qualcosa.
 
-TO: Lo vedo.
+TÒ: Lo vedo.
     -> END

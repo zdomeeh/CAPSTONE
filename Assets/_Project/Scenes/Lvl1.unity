@@ -1009,7 +1009,7 @@ MonoBehaviour:
   requiredItem: Crowbar
   closedDialogue: {fileID: 4900000, guid: b7fc6282fa60dc44e8f55f4cdcc55b6d, type: 3}
   hintDialogue: {fileID: 4900000, guid: 43e0bfdb080f58e4ab2f6e65dea9dea8, type: 3}
-  openDialogue: {fileID: 4900000, guid: 7355f59e1c2de054db2b74dcab0e50e5, type: 3}
+  openDialogue: {fileID: 4900000, guid: d3736345ba50b1544ae21a6869097cd1, type: 3}
   hiddenObject: {fileID: 99828337}
   backgroundClosed: {fileID: 1912510259}
   backgroundOpen: {fileID: 1521616691}

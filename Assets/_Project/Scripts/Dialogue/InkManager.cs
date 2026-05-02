@@ -15,6 +15,10 @@ public class InkManager : MonoBehaviour
     public Image portraitImage;
     public GameObject continueIndicator;
 
+    [Header("Choices")]
+    public GameObject choicesPanel;
+    public GameObject choiceButtonPrefab;
+
     [Header("Typing")]
     public float typingSpeed = 0.02f;
 
@@ -34,9 +38,16 @@ public class InkManager : MonoBehaviour
     private Coroutine typingCoroutine;
     private bool isTyping = false;
     private string currentLine;
+    private bool choicesActive = false;
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -48,18 +59,32 @@ public class InkManager : MonoBehaviour
 
         story = new Story(inkJSON.text);
 
+        story.BindExternalFunction("RevealKey", () =>
+        {
+            FindObjectOfType<BedKeyInteractable>()?.RevealKey();
+        });
+
         dialoguePanel.SetActive(true);
         IsInputBlocked = true;
+        ClearChoices();
 
         ContinueStory();
     }
 
     void Update()
     {
-        if (dialoguePanel.activeSelf && Input.GetMouseButtonDown(0))
+        if (dialoguePanel == null)
+            return;
+
+        if (!dialoguePanel.activeSelf)
+            return;
+
+        if (choicesActive)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
         {
-            // Se sta scrivendo allora completa subito
-            if (isTyping) 
+            if (isTyping)
             {
                 StopCoroutine(typingCoroutine);
                 dialogueText.text = currentLine;
@@ -67,6 +92,9 @@ public class InkManager : MonoBehaviour
 
                 if (continueIndicator != null)
                     continueIndicator.SetActive(true);
+
+                if (story.currentChoices.Count > 0)
+                    ShowChoices();
 
                 return;
             }
@@ -77,11 +105,11 @@ public class InkManager : MonoBehaviour
 
     void ContinueStory()
     {
+        ClearChoices();
+
         if (story.canContinue)
         {
             currentLine = story.Continue();
-
-            // Gestione speaker (TO, PINO)
             HandleSpeaker(ref currentLine);
 
             if (typingCoroutine != null)
@@ -89,14 +117,13 @@ public class InkManager : MonoBehaviour
 
             typingCoroutine = StartCoroutine(TypeLine(currentLine));
         }
+        else if (story.currentChoices.Count > 0)
+        {
+            ShowChoices();
+        }
         else
         {
-            dialoguePanel.SetActive(false);
-
-            if (continueIndicator != null)
-                continueIndicator.SetActive(false);
-
-            IsInputBlocked = false;
+            EndStory();
         }
     }
 
@@ -112,7 +139,6 @@ public class InkManager : MonoBehaviour
         {
             dialogueText.text += letter;
 
-            // pausa su punteggiatura
             if (letter == '.' || letter == ',' || letter == '!' || letter == '?')
                 yield return new WaitForSeconds(typingSpeed * 4);
             else
@@ -121,8 +147,68 @@ public class InkManager : MonoBehaviour
 
         isTyping = false;
 
-        if (continueIndicator != null)
+        if (story.currentChoices.Count > 0)
+        {
+            ShowChoices();
+        }
+        else if (continueIndicator != null)
+        {
             continueIndicator.SetActive(true);
+        }
+    }
+
+    void ShowChoices()
+    {
+        choicesActive = true;
+
+        if (continueIndicator != null)
+            continueIndicator.SetActive(false);
+
+        choicesPanel.SetActive(true);
+
+        foreach (Choice choice in story.currentChoices)
+        {
+            GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesPanel.transform);
+
+            TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = choice.text;
+
+            Button button = buttonObj.GetComponent<Button>();
+            int choiceIndex = choice.index;
+
+            button.onClick.AddListener(() =>
+            {
+                story.ChooseChoiceIndex(choiceIndex);
+                choicesActive = false;
+                ClearChoices();
+                ContinueStory();
+            });
+        }
+    }
+
+    void ClearChoices()
+    {
+        if (choicesPanel == null)
+            return;
+
+        foreach (Transform child in choicesPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        choicesPanel.SetActive(false);
+        choicesActive = false;
+    }
+
+    void EndStory()
+    {
+        dialoguePanel.SetActive(false);
+
+        if (continueIndicator != null)
+            continueIndicator.SetActive(false);
+
+        ClearChoices();
+        IsInputBlocked = false;
     }
 
     void HandleSpeaker(ref string line)
@@ -147,21 +233,21 @@ public class InkManager : MonoBehaviour
             {
                 nameText.text = character.characterName;
                 nameText.color = character.nameColor;
-
                 portraitImage.sprite = character.portrait;
                 portraitImage.enabled = true;
-
                 return;
             }
         }
 
-        // fallback
         nameText.text = "";
         portraitImage.enabled = false;
     }
 
     public bool IsDialogueActive()
     {
+        if (dialoguePanel == null)
+            return false;
+
         return dialoguePanel.activeSelf;
     }
 }

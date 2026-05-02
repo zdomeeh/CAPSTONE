@@ -1,5 +1,5 @@
 -> start
 
 === start ===
-E questa da dove salta fuori...
+Hai ottenuto "Key"
 -> END
