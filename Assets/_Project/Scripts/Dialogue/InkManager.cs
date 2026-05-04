@@ -256,6 +256,9 @@ public class InkManager : MonoBehaviour
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = choice.text;
 
+            buttonText.alignment = TextAlignmentOptions.Center;
+            buttonText.enableWordWrapping = true;
+
             Button button = buttonObj.GetComponent<Button>();
             int choiceIndex = choice.index;
 
