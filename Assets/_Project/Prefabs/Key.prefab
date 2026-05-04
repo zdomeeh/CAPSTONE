@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726df57e6d814104db5cd4ff4ba6df42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemId: key
   itemName: Key
   itemIcon: {fileID: 21300000, guid: 74804afa2b00a7c47b2ee77b0650d196, type: 3}
   inkJSON: {fileID: 0}

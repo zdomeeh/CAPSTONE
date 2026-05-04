@@ -4,7 +4,7 @@ EXTERNAL RevealKey()
 === start ===
 
 TÒ: È il mio letto…
-Le coperte sono ancora sfatte.
+È un pò in disordine.
 
 PINO: Non è che vuoi guardare sotto?
 

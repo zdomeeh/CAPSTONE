@@ -22,6 +22,12 @@ public class InkManager : MonoBehaviour
     [Header("Typing")]
     public float typingSpeed = 0.02f;
 
+    [Header("Final Scene")]
+    public Image finalImage;
+    public float fadeSpeed = 2f;
+
+    public System.Action OnStoryEnd;
+
     [System.Serializable]
     public class CharacterData
     {
@@ -62,6 +68,21 @@ public class InkManager : MonoBehaviour
         story.BindExternalFunction("RevealKey", () =>
         {
             FindObjectOfType<BedKeyInteractable>()?.RevealKey();
+        });
+
+        story.BindExternalFunction("RevealLetter", () =>
+        {
+            FindObjectOfType<PaintingLetterInteractable>()?.RevealLetter();
+        });
+
+        story.BindExternalFunction("ShowFinalImage", () =>
+        {
+            ShowFinalImage();
+        });
+
+        story.BindExternalFunction("HideFinalImage", () =>
+        {
+            HideFinalImage();
         });
 
         dialoguePanel.SetActive(true);
@@ -209,6 +230,9 @@ public class InkManager : MonoBehaviour
 
         ClearChoices();
         IsInputBlocked = false;
+
+        OnStoryEnd?.Invoke();
+        OnStoryEnd = null;
     }
 
     void HandleSpeaker(ref string line)
@@ -249,5 +273,39 @@ public class InkManager : MonoBehaviour
             return false;
 
         return dialoguePanel.activeSelf;
+    }
+
+    public void ShowFinalImage()
+    {
+        if (finalImage == null) return;
+
+        StopAllCoroutines();
+        StartCoroutine(FadeImage(1f));
+    }
+
+    public void HideFinalImage()
+    {
+        if (finalImage == null) return;
+
+        StopAllCoroutines();
+        StartCoroutine(FadeImage(0f));
+    }
+
+    IEnumerator FadeImage(float targetAlpha)
+    {
+        float startAlpha = finalImage.color.a;
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * fadeSpeed;
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+
+            finalImage.color = new Color(1f, 1f, 1f, alpha);
+
+            yield return null;
+        }
+
+        finalImage.color = new Color(1f, 1f, 1f, targetAlpha);
     }
 }

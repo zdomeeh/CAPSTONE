@@ -8,6 +8,19 @@ public class GameState : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void SetLetterRead()
+    {
+        hasReadLetter = true;
+        Debug.Log("Lettera letta salvata in GameState");
     }
 }

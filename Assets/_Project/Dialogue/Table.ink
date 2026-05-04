@@ -1,5 +1,5 @@
 -> start
 
 === start ===
-Non ha lasciato niente qui...
+È ancora da sparecchiare...
 -> END

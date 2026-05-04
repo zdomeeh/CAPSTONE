@@ -1,3 +1,3 @@
 TÒ: Chiuso.
-E non ho voglia di forzarlo.
+TÒ: E non ho voglia di forzarlo.
 -> END
