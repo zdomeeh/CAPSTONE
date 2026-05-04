@@ -1,44 +1,70 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Door : Interactable
 {
+    [Header("Dialoghi")]
     public TextAsset noLetterDialogue;
     public TextAsset lockedDialogue;
     public TextAsset openDialogue;
 
+    [Header("Item richiesto")]
     public string requiredItem = "Key";
+
+    [Header("Scena")]
+    public string sceneToLoad = "Lvl0.5";
+
+    [Header("Transizione")]
+    public AudioSource transitionAudio;
+    public float blackHoldDuration = 3.5f;
+
+    private bool isLoading = false;
 
     public override void Interact()
     {
-        Debug.Log("HasReadLetter: " + GameState.Instance.hasReadLetter);
+        // Se la scena si sta gia' caricando, blocca l'interazione
+        if (isLoading)
+            return;
 
-        // 1. lettera non letta
+        // Se un dialogo e' gia' attivo, blocca l'interazione
+        if (InkManager.Instance != null && InkManager.Instance.IsDialogueActive())
+            return;
+
+        // Se il giocatore non ha ancora letto la lettera, mostra il dialogo dedicato
         if (!GameState.Instance.hasReadLetter)
         {
             InkManager.Instance.StartStory(noLetterDialogue);
             return;
         }
 
-        // 2. Controlla item selezionato
         string selected = InventorySelection.Instance.selectedItem;
 
+        // Se l'oggetto selezionato non e' quello richiesto, mostra il dialogo della porta chiusa
         if (selected != requiredItem)
         {
             InkManager.Instance.StartStory(lockedDialogue);
             return;
         }
 
-        // 3. Porta si apre
-        InkManager.Instance.StartStory(openDialogue);
-
+        // Rimuove la selezione dell'oggetto
         InventorySelection.Instance.ClearSelection();
 
-        Invoke(nameof(OpenDoor), 1.5f);
+        // Segna che sta iniziando il caricamento
+        isLoading = true;
+
+        // Quando il dialogo finisce, avvia la transizione della porta
+        InkManager.Instance.OnStoryEnd += StartDoorTransition;
+
+        // Avvia il dialogo della porta aperta
+        InkManager.Instance.StartStory(openDialogue);
     }
 
-    void OpenDoor()
+    private void StartDoorTransition()
     {
-        SceneManager.LoadScene("Lvl0.5");
+        // Carica la nuova scena con transizione
+        SceneTransitionManager.Instance.LoadSceneWithTransition(
+            sceneToLoad,
+            transitionAudio,
+            blackHoldDuration
+        );
     }
 }

@@ -31,4 +31,14 @@ public class InventoryUI : MonoBehaviour
 
         slots.Add(slot);
     }
+
+    public void ClearUI()
+    {
+        foreach (GameObject slot in slots)
+        {
+            Destroy(slot);
+        }
+
+        slots.Clear();
+    }
 }

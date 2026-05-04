@@ -1,5 +1,10 @@
--> start
+TÒ: Da qui si vede il cortile.
 
-=== start ===
-Fuori è tutto troppo silenzioso...
+PINO: Vedi qualcosa?
+
+TÒ: Sì.
+
+PINO: Cosa?
+
+TÒ: Il cortile.
 -> END

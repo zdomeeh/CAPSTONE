@@ -10,21 +10,26 @@ public class HoverHighlight : MonoBehaviour
 
     void Start()
     {
+        // Prende il componente SpriteRenderer dell'oggetto
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Salva il colore originale dello sprite
         originalColor = spriteRenderer.color;
     }
 
     void OnMouseEnter()
     {
-        // Non attiva hover se dialogo aperto
+        // Se un dialogo e' attivo, non cambia colore
         if (InkManager.Instance != null && InkManager.Instance.IsDialogueActive())
             return;
 
+        // Cambia colore quando il mouse passa sopra
         spriteRenderer.color = hoverColor;
     }
 
     void OnMouseExit()
     {
+        // Ripristina il colore originale quando il mouse esce
         spriteRenderer.color = originalColor;
     }
 }

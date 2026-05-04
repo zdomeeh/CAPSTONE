@@ -29,4 +29,9 @@ public class InventorySelection : MonoBehaviour
     {
         selectedItem = null;
     }
+
+    public void ResetSelection()
+    {
+        selectedItem = null;
+    }
 }

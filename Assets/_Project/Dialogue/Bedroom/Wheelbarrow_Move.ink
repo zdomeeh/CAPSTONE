@@ -38,5 +38,5 @@ TÒ: Certo.
 
 TÒ: Lasciamo stare.
 
-PINO: Meglio di sì.
+PINO: Anche la mia schiena ringrazia.
 -> END
