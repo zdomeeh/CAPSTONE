@@ -2207,7 +2207,7 @@ MonoBehaviour:
   optionsPanel: {fileID: 787544747}
   volumeSlider: {fileID: 1849027354}
   fullscreenToggle: {fileID: 602262060}
-  firstGameScene: Mainroom
+  firstGameScene: Bedroom
 --- !u!4 &1444887124
 Transform:
   m_ObjectHideFlags: 0

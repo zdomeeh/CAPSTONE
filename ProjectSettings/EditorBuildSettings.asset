@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/MainMenu.unity
     guid: 1ce7784fde9db9f4d8c48571508b3489
   - enabled: 1
-    path: Assets/_Project/Scenes/House/Mainroom.unity
-    guid: 12dff462099a74c49a1121f801eb671f
-  - enabled: 1
     path: Assets/_Project/Scenes/House/Bedroom.unity
     guid: 77a44de3398bfa4458fce5f68412ccb1
+  - enabled: 1
+    path: Assets/_Project/Scenes/House/Mainroom.unity
+    guid: 12dff462099a74c49a1121f801eb671f
   - enabled: 1
     path: Assets/_Project/Scenes/Lvl0.5.unity
     guid: 8142f3fbd84b0b14784fb407dab36c04

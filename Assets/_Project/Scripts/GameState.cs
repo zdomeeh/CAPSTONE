@@ -5,6 +5,7 @@ public class GameState : MonoBehaviour
     public static GameState Instance;
 
     public bool hasReadLetter = false;
+    public bool introPlayed = false;
 
     private void Awake()
     {

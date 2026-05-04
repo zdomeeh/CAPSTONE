@@ -1188,6 +1188,8 @@ MonoBehaviour:
   sceneToLoad: Lvl0.5
   dialogueBeforeLoad: {fileID: 4900000, guid: 9ba16ddfd6c96db439140b6da9470b69, type: 3}
   delayBeforeLoad: 1.2
+  setWorldFlagOnLoad: 0
+  worldFlagToSet: 
 --- !u!61 &1839448674
 BoxCollider2D:
   m_ObjectHideFlags: 0

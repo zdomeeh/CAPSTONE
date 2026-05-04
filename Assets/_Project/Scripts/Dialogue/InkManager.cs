@@ -75,6 +75,11 @@ public class InkManager : MonoBehaviour
             FindObjectOfType<PaintingLetterInteractable>()?.RevealLetter();
         });
 
+        story.BindExternalFunction("MoveWheelbarrow", () =>
+        {
+            FindObjectOfType<WheelbarrowInteractable>()?.MoveWheelbarrow();
+        });
+
         story.BindExternalFunction("ShowFinalImage", () =>
         {
             ShowFinalImage();

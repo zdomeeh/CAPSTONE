@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
     public Toggle fullscreenToggle;
 
     [Header("Scenes")]
-    public string firstGameScene = "Mainroom";
+    public string firstGameScene = "Bedroom";
 
     private void Start()
     {
