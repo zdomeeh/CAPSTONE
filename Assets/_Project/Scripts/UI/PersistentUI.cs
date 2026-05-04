@@ -6,13 +6,17 @@ public class PersistentUI : MonoBehaviour
 
     private void Awake()
     {
+        // Se esiste gia' un'istanza, distrugge questo oggetto
         if (alreadyExists)
         {
             Destroy(gameObject);
             return;
         }
 
+        // Segna che esiste gia' un'istanza
         alreadyExists = true;
+
+        // Mantiene questo oggetto tra le scene
         DontDestroyOnLoad(gameObject);
     }
 }

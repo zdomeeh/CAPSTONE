@@ -18,60 +18,78 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void Awake()
     {
+        // Evita piu' istanze
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
+        // Imposta questa come istanza principale
         Instance = this;
+
+        // Mantiene questo oggetto tra le scene
         DontDestroyOnLoad(gameObject);
     }
 
     public void LoadSceneWithTransition(string sceneName, AudioSource audio = null, float holdDuration = 1.5f)
     {
+        // Se una transizione e' gia' in corso, blocca
         if (isTransitioning)
             return;
 
+        // Avvia la sequenza di transizione
         StartCoroutine(Transition(sceneName, audio, holdDuration));
     }
 
     private IEnumerator Transition(string sceneName, AudioSource audio, float holdDuration)
     {
+        // Segna che la transizione e' in corso
         isTransitioning = true;
+
+        // Blocca input
         InkManager.IsInputBlocked = true;
 
+        // Nasconde l'inventario
         if (inventoryPanel != null)
             inventoryPanel.SetActive(false);
 
         // Fade verso nero
         yield return StartCoroutine(FadeBlack(1f));
 
+        // Riproduce audio se presente
         if (audio != null)
         {
             audio.Stop();
             audio.Play();
         }
 
+        // Attende prima di cambiare scena
         yield return new WaitForSecondsRealtime(holdDuration);
 
+        // Carica la nuova scena
         SceneManager.LoadScene(sceneName);
 
-        // aspetta 1 frame per far caricare la scena
+        // Attende un frame per sicurezza
         yield return null;
 
         // Fade dal nero alla scena
         yield return StartCoroutine(FadeBlack(0f));
 
+        // Mostra di nuovo l'inventario
         if (inventoryPanel != null)
             inventoryPanel.SetActive(true);
 
+        // Sblocca input
         InkManager.IsInputBlocked = false;
+
+        // Segna fine transizione
         isTransitioning = false;
     }
 
     private IEnumerator FadeBlack(float targetAlpha)
     {
+        // Se manca lo schermo nero, errore
         if (blackScreen == null)
         {
             Debug.LogError("BlackScreen non assegnato nel SceneTransitionManager.");
@@ -81,6 +99,7 @@ public class SceneTransitionManager : MonoBehaviour
         float startAlpha = blackScreen.color.a;
         float timer = 0f;
 
+        // Cambia gradualmente la trasparenza
         while (timer < defaultFadeDuration)
         {
             timer += Time.unscaledDeltaTime;
@@ -93,6 +112,7 @@ public class SceneTransitionManager : MonoBehaviour
             yield return null;
         }
 
+        // Imposta il valore finale
         Color finalColor = blackScreen.color;
         finalColor.a = targetAlpha;
         blackScreen.color = finalColor;
